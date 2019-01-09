@@ -1,0 +1,5 @@
+site_name: Docker + MkDocs
+site_url: https://imsardine.github.io/docker-mkdocs/
+repo_url: https://github.com/imsardine/docker-mkdocs
+repo_name: imsardine/docker-mkdocs
+theme: material

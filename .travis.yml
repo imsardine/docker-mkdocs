@@ -1,0 +1,21 @@
+services:
+  - docker
+branches:
+  only:
+  - master
+before_install:
+  - make setup
+script:
+  - make build
+deploy:
+  - provider: script
+    script: make deploy-image
+    on:
+      branch: master
+  - provider: pages
+    github-token: $GITHUB_TOKEN
+    skip-cleanup: true
+    local-dir: site
+    target-branch: gh-pages
+    on:
+      branch: master
