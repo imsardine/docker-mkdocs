@@ -3,10 +3,8 @@ services:
 branches:
   only:
   - master
-before_install:
-  - make setup
 script:
-  - make build
+  - make build build-docs
 deploy:
   - provider: script
     script: make deploy-image

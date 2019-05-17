@@ -1,7 +1,7 @@
 MAKEFLAGS=--warn-undefined-variables
 
 # Parameters
--include Makefile.credentials
+-include credentials.mk
 PORT ?= 8000
 
 # Internal Variables
@@ -17,7 +17,7 @@ define docker_run
 	  $(docker_image) $(1)
 endef
 
-setup:
+build:
 	docker build -t $(docker_image) .
 
 shell: docker_opts += --entrypoint= --publish $(PORT):8000
@@ -28,11 +28,11 @@ preview: docker_opts += --publish $(PORT):8000
 preview:
 	$(call docker_run,serve --dev-addr 0.0.0.0:8000)
 
-build:
+build-docs:
 	$(call docker_run,build --clean)
 
 deploy-image: export DOCKER_USERNAME ?=
 deploy-image: export DOCKER_PASSWORD ?=
 deploy-image:
-	echo "$(DOCKER_PASSWORD)" | docker login -u "$(DOCKER_USERNAME)" --password-stdin
+	echo $$DOCKER_PASSWORD | docker login -u $$DOCKER_USERNAME --password-stdin
 	docker push $(docker_image)
