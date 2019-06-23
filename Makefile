@@ -36,3 +36,6 @@ deploy-image: export DOCKER_PASSWORD ?=
 deploy-image:
 	echo $$DOCKER_PASSWORD | docker login -u $$DOCKER_USERNAME --password-stdin
 	docker push $(docker_image)
+
+clean:
+	git clean -Xdf
